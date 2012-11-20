@@ -3,7 +3,24 @@ S4 - Spray Slick Starter Stack
 
 Simple, mostly blank project to help you get started with a [Spray](http://spray.io/) REST service using [Slick](http://slick.typesafe.com/) as persistence broker.
 
-The cake pattern is used to allow multiple database backend support without code change. This complicates the code a little, but it worth it. For a basic example (and where I got some code from) have a look at [the MultiDBCakeExample](https://github.com/slick/slick-examples/blob/master/src/main/scala/scala/slick/examples/lifted/MultiDBCakeExample.scala)
+It's just a start, but you immediately get:
+
+   - Spray
+
+   - Akka
+
+   - Slick
+
+   - Logging
+
+   - Testing
+
+   - A slice of cake
+
+
+This project is _nothing fancy_, but tries to put skeleton code at the right places to start building a more serious project.
+
+The cake pattern is used to allow multiple database backend support without code change. This complicates the code a little, but it will be worth it in the long run. For a basic Slick cake pattern example (and where I got some code from) have a look at [the MultiDBCakeExample](https://github.com/slick/slick-examples/blob/master/src/main/scala/scala/slick/examples/lifted/MultiDBCakeExample.scala)
 
 
 To get going:
