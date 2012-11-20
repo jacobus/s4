@@ -28,12 +28,17 @@ To run the project as a service:
 
 5. Now you can post some json to it (look at the tests for some valid examples)
 
+Using an IDE:
+-------------
+Both the Scala IDE (Eclipse) project generator and Idea project generator are included in plugins.sbt, so you can type gen-idea or eclipse in the SBT console to generate the project configuration for either of these great IDE's. Personally, I use both: Scala IDE for day-to-day development and it's amazing Scala Worksheet functionality, and Idea for it's superior search and replace.
 
-Pull requests welcome! Project lacks basic authorise example and file upload example ;-)
+Contribute:
+-----------
+Pull requests are welcome! The current project lacks a basic authorise example and file upload example ;-)
 
 Getting help:
 -------------
-The Spray-users forum and Slick-users are both good places to find help on the specific libraries.
+The [spray-user forum](https://groups.google.com/forum/?fromgroups#!forum/spray-user) and [slick forum](https://groups.google.com/forum/?fromgroups#!forum/scalaquery) are both good places to find help on the specific libraries.
 
 Updates:
 --------
@@ -44,4 +49,4 @@ Credits:
 
 This example borrows greatly from examples provided by both the Spray and Slick authors.
 
-**Disclaimer:** I am hoping this will serve as a nice example to get going, but keep in mind that I'm still learning, so I can't be held responsible for any damages caused by this code.
+**Disclaimer:** I am hoping this will serve as a nice example to get going, but you are using this code at your own risk.

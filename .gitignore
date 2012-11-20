@@ -16,6 +16,9 @@ project/plugins/project/
 .worksheet
 *.sc
 
+# Temp Files
+*.*~
+
 
 # eclipse conf file
 .settings
