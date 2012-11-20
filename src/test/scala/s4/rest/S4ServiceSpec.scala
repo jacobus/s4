@@ -2,7 +2,7 @@ package s4.rest
 
 import s4.domain.TestDB
 
-import org.specs2.Specification //.mutable.Specification
+import org.specs2.Specification
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import spray.testkit.Specs2RouteTest
@@ -70,61 +70,3 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
     }
   }
 }
-  /*
-  "S4" should {
-
-    "return a greeting for GET requests to the root path" in {
-      Get() ~> s4Route ~> check {
-        entityAs[String] must contain("S4")
-      }
-    }
-
-    "leave GET requests to other paths unhandled" in {
-      Get("/stuffthatdoesnotexist") ~> s4Route ~> check {
-        handled must beFalse
-      }
-    }
-
-    "return a MethodNotAllowed error for PUT requests to the root path" in {
-      Put() ~> sealRoute(s4Route) ~> check {
-        status === MethodNotAllowed
-        entityAs[String] === "HTTP method not allowed, supported methods: GET"
-      }
-    }
-
-    import s4.domain._
-    import JsonImplicits._
-    val jsonPerson = """{
-      "id": 0, 
-      "fname": "Jack"}"""
-    val expectedPerson = Person(fname = "Jack", id = Some(1))
-
-    "add a client" in {
-      Post("/client", HttpBody(`application/json`, jsonPerson)) ~> s4Route ~> check {
-        entityAs[Person] === expectedPerson
-      }
-    }
-  }*/
-
-
-/*
-     override def is = {
-       var string2NR = () // shadow implicit conversion from Directives trait
-       
-         "This is a specification to check the 'Hello world' string"                 ^
-                                                                                    p^
-        "The 'Hello world' string should"                                          ^
-          "contain 11 characters"                                                   ! e1^
-          "start with 'Hello'"                                                      ! e2^
-          "end with 'world'"                                                        ! e3^
-                                                                             end
-  }
-
-      def e1 = "Hello world" must have size(11)
-      def e2 = "Hello world" must startWith("Hello")
-      def e3 = "Hello world" must endWith("world")
-    
-def serverRunning = Get() ~> s4Route ~> check {
-        entityAs[String] must contain("S4")
-      }
- */

@@ -18,25 +18,13 @@ trait PersonComponent { this: Profile =>
     // Query Definition
     val autoInc = fname ~ lname returning id into { case (c, i) => Person(c._1, c._2, i) }
     def findAll = for (x <- Persons) yield x
- //   def findAllMapped = for (x <- Persons) yield x
     def forInsert = fname ~ lname <>
       ({ (f, l) => Person(f, l, None) }, { x: Person => Some((x.fname, x.lname)) })
       
     // Query Execution
     def findAllPersons(implicit session: Session): List[Person] = { findAll.list map { x => Person(fname = x._1, lname = x._2, id = x._3) } }
- //   def findAllPersons(implicit session: Session): List[Person] = { findAll.list map { x => Person(fname = x._1, lname = x._2, id = x._3) } }
     def insert(person: Person)(implicit session: Session): Person = {
       autoInc.insert(person.fname, person.lname)
     }
   }
 }
-
-
-    
- //   def findByName(n:String)(implicit session: Session) = for(c <- Persons; if c.fname === n) yield {case c => Person(fname = c._1, id = c._2)}
-    
-  //  def findByName(n: String) = byName yield c => Person(fname = c._1, id = c._2)
-    
-   // val deleteByName(n: String) = findByName(n).delete
-
- //   def findAllPersons(implicit session: Session) = findAll.list map { Person(fname = _._1, id = _._2)}

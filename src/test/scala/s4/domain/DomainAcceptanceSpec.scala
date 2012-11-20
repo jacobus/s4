@@ -20,5 +20,4 @@ class DomainAcceptanceSpec extends Specification {
   m.createDB
 
   def addPerson = m.addPerson(Person("Bob", "TheBuilder")) === (Person(id = Some(1), fname = "Bob", lname = "TheBuilder"))
- // def findByName = m.findByName("Bob") === (Person(id = Some(1), fname = "Bob"))
 }

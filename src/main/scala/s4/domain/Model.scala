@@ -20,12 +20,9 @@ class Model(name: String, dal: DAL, db: Database) {
   def purgeDB = dal.purge
 
    def getPersons(): List[Person] = {
-//    val result = Persons.findAll.list map {x => Person(fname = x._1, id = x._2)}
- //   println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     val result = Persons.findAllPersons
     println("Got persons: " + result)
     result
-   // ???
   }
 
   def addPerson(person: Person): Person = {
@@ -33,19 +30,4 @@ class Model(name: String, dal: DAL, db: Database) {
     println("Inserted person: " + result)
     result
   }
-  
-   
- /* def findByName(n: String): Person = {
-
-    //creating our default person
-    val result = Persons.findByName(n)
-    println("  Inserted person: " + result)
-    result
-  }*/
 }
-/*object Model {
-  def main(args: Array[String]) {
-    val logger: Logger = LoggerFactory.getLogger("apoint.domain.Model");
-    logger.debug("Model Logging :-)")
-  }
-}*/
