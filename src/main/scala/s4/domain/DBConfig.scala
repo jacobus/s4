@@ -16,7 +16,7 @@ trait TestDB extends DBConfig {
 
 trait ProductionDB extends DBConfig {
   val m = new Model("PostgreSQL", new DAL(PostgresDriver),
-    Database.forURL("jdbc:postgresql:test:slick",
+    Database.forURL("jdbc:postgresql:test:s4",
                            driver="org.postgresql.Driver",
                            user="postgres",
                            password="xxxxx"))
