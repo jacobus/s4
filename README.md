@@ -1,5 +1,5 @@
-S4 - Spray Slick Starter Stack
-==============================
+S4 - Spray Slick Scala Start
+============================
 
 Simple, mostly blank project to help you get started with a [Spray](http://spray.io/) REST service using [Slick](http://slick.typesafe.com/) as persistence broker.
 
@@ -55,7 +55,7 @@ Pull requests are welcome! The current project lacks a basic authorise example a
 
 Getting help:
 -------------
-The [spray-user forum](https://groups.google.com/forum/?fromgroups#!forum/spray-user) and [slick forum](https://groups.google.com/forum/?fromgroups#!forum/scalaquery) are both good places to find help on the specific libraries.
+The [spray-user forum](https://groups.google.com/forum/?fromgroups#!forum/spray-user) and [slick forum](https://groups.google.com/forum/?fromgroups#!forum/scalaquery) are both the best places to find help on the specific libraries. For questions or suggestions on specific to this project, please visit the [S4 group](https://groups.google.com/forum/?fromgroups#!forum/spray-slick-scala-start).
 
 Updates:
 --------
@@ -64,6 +64,6 @@ I will [tweet](https://twitter.com/jacobusreyneke) any significant change to the
 Credits:
 --------
 
-This example borrows greatly from examples provided by both the Spray and Slick authors.
+This example borrows a great deal from examples provided by both the Spray and Slick authors.
 
 **Disclaimer:** I am hoping this will serve as a nice example to get going, but you are using this code at your own risk.
