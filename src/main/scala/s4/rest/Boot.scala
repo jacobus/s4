@@ -12,11 +12,11 @@ object Boot extends App {
   val system = ActorSystem("S4")
 
   // every spray-can HttpServer (and HttpClient) needs an IOBridge for low-level network IO
-  // (but several servers and/or persons can share one)
-  val ioBridge = new IOBridge(system).start()
-
+  // (but several servers and/or clients can share one)
+  //val ioBridge = new IOBridge(system).start()
+  private val ioBridge = IOExtension(system).ioBridge()
   // create and start our service actor
-  val service = system.actorOf(Props[S4ServiceActor], "S4-service")
+  val service = system.actorOf(Props[S4ServiceActor], "s4-service")
 
   // create and start the spray-can HttpServer, telling it that
   // we want requests to be handled by our singleton service actor
@@ -28,10 +28,4 @@ object Boot extends App {
   // a running HttpServer can be bound, unbound and rebound
   // initially to need to tell it where to bind to
   httpServer ! HttpServer.Bind("localhost", 8080)
-
-  // finally we drop the main thread but hook the shutdown of
-  // our IOBridge into the shutdown of the applications ActorSystem
-  system.registerOnTermination {
-    ioBridge.stop()
-  }
 }
