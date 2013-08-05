@@ -45,6 +45,13 @@ To run the project as a service:
 
 5. Now you can post some json to it (look at the tests for some valid examples)
 
+Simple sample of file upload:
+----------------------------
+To test the upload function. With s4 running, open another terminal and go into the s4 directory. Once there, excecute the following command:
+curl -i -F "imageupload=@testpic.png" http://127.0.0.1:8080/upload
+
+This will upload the sample image 'testpic.png' to the server. The server will save the image to the same directory, but this time it will be called 'test.png'.
+
 Using an IDE:
 -------------
 Both the Scala IDE (Eclipse) project generator and Idea project generator are included in plugins.sbt, so you can type gen-idea or eclipse in the SBT console to generate the project configuration for either of these great IDE's. Personally, I use both: Scala IDE for day-to-day development and it's amazing Scala Worksheet functionality, and Idea for it's superior search and replace.
