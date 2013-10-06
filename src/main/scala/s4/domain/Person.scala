@@ -17,7 +17,9 @@ trait PersonComponent { this: Profile =>
 
     // Query Definition
     val autoInc = fname ~ lname returning id into { case (c, i) => Person(c._1, c._2, i) }
+
     def findAll = for (x <- Persons) yield x
+    
     def forInsert = fname ~ lname <>
       ({ (f, l) => Person(f, l, None) }, { x: Person => Some((x.fname, x.lname)) })
       

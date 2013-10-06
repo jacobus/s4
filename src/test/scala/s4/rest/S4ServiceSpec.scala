@@ -9,6 +9,7 @@ import spray.testkit.Specs2RouteTest
 import spray.http._
 import StatusCodes._
 import MediaTypes.`application/json`
+import HttpCharsets._
 import spray.httpx.SprayJsonSupport.{ sprayJsonMarshaller, sprayJsonUnmarshaller }
 
 @RunWith(classOf[JUnitRunner]) // Only required if testing from within Eclipse
@@ -64,7 +65,7 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
   }
 
   def createPerson = {
-    Post("/person", HttpBody(`application/json`, jsonPerson)) ~> s4Route ~> check {
+    Post("/person", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonPerson)) ~> s4Route ~> check {
       entityAs[Person] === expectedPerson
       ok
     }
