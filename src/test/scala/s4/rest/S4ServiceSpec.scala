@@ -1,16 +1,20 @@
 package s4.rest
 
-import s4.domain.TestDB
-
-import org.specs2.Specification
 import org.junit.runner.RunWith
-import org.specs2.runner.JUnitRunner
+import org.specs2.Specification
+import s4.domain.Person
+import s4.domain.TestDB
+import spray.http.BasicHttpCredentials
+import spray.http.ContentType
+import spray.http.HttpCharsets.{ `UTF-8` }
+import spray.http.HttpEntity
+import spray.http.HttpHeaders.Authorization
+import spray.http.MediaTypes.{ `application/json` }
+import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
+import spray.routing.AuthenticationFailedRejection
+import spray.routing.AuthenticationRequiredRejection
 import spray.testkit.Specs2RouteTest
-import spray.http._
-import StatusCodes._
-import MediaTypes.`application/json`
-import HttpCharsets._
-import spray.httpx.SprayJsonSupport.{ sprayJsonMarshaller, sprayJsonUnmarshaller }
+import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner]) // Only required if testing from within Eclipse
 class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service with TestDB {
@@ -18,8 +22,8 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
 
   def is = {
     var string2NR = () // shadow implicit conversion from Spray Directives trait
-    sequential^
-    "Template Project REST Specification" ^
+    sequential ^
+      "Template Project REST Specification" ^
       p ^
       "The server should" ^
       "Respond with greeting on root path" ! serverRunning ^
@@ -34,6 +38,10 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
       "Handle missing fields" ! todo ^
       "Handle invalid fields" ! todo ^
       "Return error if the entity does not exist" ! todo ^
+      p ^
+      "Check authentication negatives" ^
+      "Require authentication - No username and password" ! requireAuthentication ^
+      "Fail authentication - Wrong username or password" ! failAuthentication ^
       end
   }
 
@@ -47,16 +55,16 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
       "id": 0, 
       "fname": "Jack",
       "lname": "InABox"}"""
-    
+
   val expectedPerson = Person(fname = "Jack", lname = "InABox", id = Some(1))
 
   def getEmptyPersonList = {
     Get("/persons") ~> s4Route ~> check {
       entityAs[List[Person]] === List()
       ok
-    } 
+    }
   }
-  
+
   def getNonEmptyPersonList = {
     Get("/persons") ~> s4Route ~> check {
       entityAs[List[Person]].length > 0
@@ -65,9 +73,23 @@ class S4ServiceSpec extends Specification with Specs2RouteTest with S4Service wi
   }
 
   def createPerson = {
-    Post("/person", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonPerson)) ~> s4Route ~> check {
+    Post("/person", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonPerson)) ~> addHeader(Authorization(BasicHttpCredentials("bob", "123"))) ~> s4Route ~> check {
       entityAs[Person] === expectedPerson
       ok
+    }
+  }
+
+  def failAuthentication = {
+    Post("/person", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonPerson)) ~> addHeader(Authorization(BasicHttpCredentials("boob", "123"))) ~> s4Route ~> check {
+      handled must beFalse
+      rejection must beAnInstanceOf[AuthenticationFailedRejection]
+    }
+  }
+
+  def requireAuthentication = {
+    Post("/person", HttpEntity(ContentType(`application/json`, `UTF-8`), jsonPerson)) ~> s4Route ~> check {
+      handled must beFalse
+      rejection must beAnInstanceOf[AuthenticationRequiredRejection]
     }
   }
 }

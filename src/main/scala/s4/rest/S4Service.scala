@@ -1,13 +1,27 @@
 package s4.rest
-import s4.domain._
-import akka.actor.Actor
-import spray.routing._
-import spray.http._
-import spray.http.MediaTypes._
-import spray.routing.Directive.pimpApply
-import spray.routing.directives.CompletionMagnet.fromObject
-import spray.json.DefaultJsonProtocol
+
 import java.io.FileOutputStream
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Promise
+import scala.language.postfixOps
+import akka.actor.Actor
+import s4.domain.DBConfig
+import s4.domain.Person
+import s4.domain.ProductionDB
+import spray.http.MediaTypes.{`text/html`}
+import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
+import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
+import spray.json.DefaultJsonProtocol
+import spray.routing.Directive.pimpApply
+import spray.routing.HttpService
+import spray.routing.authentication.BasicAuth
+import spray.routing.authentication.UserPass
+import spray.routing.authentication.UserPassAuthenticator
+import spray.routing.authentication.UserPassAuthenticator
+import spray.routing.directives.AuthMagnet.fromContextAuthenticator
+import spray.routing.directives.CompletionMagnet.fromObject
+import spray.routing.directives.FieldDefMagnet.apply
 
 // we don't implement our route structure directly in the service actor because
 // we want to be able to test it independently, without having to spin up an actor
@@ -30,6 +44,28 @@ object JsonImplicits extends DefaultJsonProtocol {
 // this trait defines our service behavior independently from the service actor
 trait S4Service extends HttpService { this: DBConfig =>
   import JsonImplicits._
+
+  //TODO Extend UserProfile class depending on project requirements
+  case class UserProfile(name: String)
+
+  def getUserProfile(name: String, password: String): Option[UserProfile] = {
+    //TODO Here you should check if this is a valid user on your system and return his profile
+    //I'm just creating one a fake one for now on the assumption that only 'bob' exits
+    if (name == "bob" && password == "123")
+      Some(UserProfile(s"$name"))
+    else
+      None
+  }
+
+  object CustomUserPassAuthenticator extends UserPassAuthenticator[UserProfile] {
+    def apply(userPass: Option[UserPass]) = Promise.successful(
+      userPass match {
+        case Some(UserPass(user, pass)) => {
+          getUserProfile(user, pass)
+        }
+        case _ => None
+      }).future
+  }
 
   val jsonRoute = {
     import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
@@ -57,10 +93,12 @@ trait S4Service extends HttpService { this: DBConfig =>
         }
       } ~
       path("person") {
-        post {
-          entity(as[Person]) { person =>
-            val result: Person = m.addPerson(person)
-            complete(result)
+        authenticate(BasicAuth(CustomUserPassAuthenticator, "person-security-realm")) { userProfile =>
+          post {
+            entity(as[Person]) { person =>
+              val result: Person = m.addPerson(person)
+              complete(result)
+            }
           }
         }
       }
