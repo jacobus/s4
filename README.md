@@ -14,6 +14,10 @@ It's just a start, but you immediately get:
    - Logging
 
    - Testing
+   
+   - File Upload
+   
+   - HTTP Basic Authentication
 
    - A slice of cake
 
@@ -59,7 +63,7 @@ Both the Scala IDE (Eclipse) project generator and Idea project generator are in
 
 Contribute:
 -----------
-Pull requests are welcome! The current project lacks a basic authorise example and file upload example ;-)
+Pull requests are welcome!
 
 Getting help:
 -------------
