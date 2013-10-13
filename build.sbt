@@ -8,6 +8,10 @@ scalaVersion := "2.10.2"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
 
+unmanagedResourceDirectories in Compile <++= baseDirectory { base =>
+    Seq( base / "src/main/webapp" )
+}
+
 resolvers ++= Seq(
   "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases/",
   "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
@@ -28,9 +32,12 @@ libraryDependencies ++= Seq(
   ,"junit"               %   "junit"             % "4.8.1"     % "test"
   ,"ch.qos.logback"      %   "logback-classic"   % "1.0.7"     //% "test"
   ,"org.scalatest"       %%  "scalatest"         % "1.9.1"
+  ,"org.seleniumhq.selenium" % "selenium-java" % "2.28.0" % "test"
 //  ,"com.typesafe.akka" %%  "akka-osgi"         % "2.2.0"
 //  ,"com.typesafe.akka" %%  "akka-slf4j"        % "2.2.0"
 //  ,"com.typesafe.akka" %%  "akka-testkit"      % "2.2.0"
 )
+
+seq(Twirl.settings: _*)
 
 EclipseKeys.withSource := true

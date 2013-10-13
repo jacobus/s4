@@ -5,6 +5,7 @@ import java.io.FileOutputStream
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Promise
 import scala.language.postfixOps
+
 import akka.actor.Actor
 import s4.domain.DBConfig
 import s4.domain.Person
@@ -71,8 +72,8 @@ trait S4Service extends HttpService { this: DBConfig =>
     import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
     import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 
-    path("") {
-      get {
+    get {
+      path("") {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
             <html>
@@ -82,8 +83,32 @@ trait S4Service extends HttpService { this: DBConfig =>
             </html>
           }
         }
-      }
+      } ~
+        path("index") {
+          respondWithMediaType(`text/html`) {
+            complete(html.index().toString)
+          }
+        } ~
+        path("index2") {
+          respondWithMediaType(`text/html`) {
+            complete(html.index2("Spraying some Bootstrap", "Hello Twirl served by Spray").toString)
+          }
+        }
     } ~
+  //          unmatchedPath { ump =>
+  //        redirect("bootstrap/%s" + ump, Found)
+  //      }
+      get {
+        //   path("favicon.ico") {
+        //    complete(NotFound)
+        //  } ~
+        path(Rest) { path =>
+          getFromResource("bootstrap/%s" format path)
+        } ~
+          path("file") {
+            getFromResource("application.conf")
+          }
+      } ~
       path("persons") {
         get { ctx =>
           ctx.complete {
