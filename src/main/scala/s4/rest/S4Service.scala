@@ -10,7 +10,7 @@ import akka.actor.Actor
 import s4.domain.DBConfig
 import s4.domain.Person
 import s4.domain.ProductionDB
-import spray.http.MediaTypes.{`text/html`}
+import spray.http.MediaTypes.{ `text/html` }
 import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
 import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 import spray.json.DefaultJsonProtocol
@@ -44,7 +44,6 @@ object JsonImplicits extends DefaultJsonProtocol {
 
 // this trait defines our service behavior independently from the service actor
 trait S4Service extends HttpService { this: DBConfig =>
-  import JsonImplicits._
 
   //TODO Extend UserProfile class depending on project requirements
   case class UserProfile(name: String)
@@ -71,6 +70,7 @@ trait S4Service extends HttpService { this: DBConfig =>
   val jsonRoute = {
     import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
     import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
+    import JsonImplicits._
 
     get {
       path("") {
@@ -95,9 +95,9 @@ trait S4Service extends HttpService { this: DBConfig =>
           }
         }
     } ~
-  //          unmatchedPath { ump =>
-  //        redirect("bootstrap/%s" + ump, Found)
-  //      }
+      //          unmatchedPath { ump =>
+      //        redirect("bootstrap/%s" + ump, Found)
+      //      }
       get {
         //   path("favicon.ico") {
         //    complete(NotFound)
