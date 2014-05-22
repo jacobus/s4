@@ -4,9 +4,12 @@ trait DBConfig {
   def m: Model
 }
 
+//import scala.slick.driver.H2Driver
+//import scala.slick.session.{ Database, Session }
+//import scala.slick.driver.JdbcProfile
 import scala.slick.driver.H2Driver
 import scala.slick.driver.PostgresDriver
-import scala.slick.session.{ Database, Session }
+import scala.slick.jdbc.JdbcBackend.Database
 
 trait TestDB extends DBConfig {
   val m = new Model("H2", new DAL(H2Driver),

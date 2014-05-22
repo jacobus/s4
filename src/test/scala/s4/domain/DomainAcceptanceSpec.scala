@@ -10,11 +10,12 @@ class DomainAcceptanceSpec extends Specification {
     "S4 Model should:" ^
       p ^
       "Return an empty list if asked for all clients"
-      "Add a client" ! addPerson ^
-      end
+  "Add a client" ! addPerson ^
+    end
 
+  import scala.slick.driver.JdbcProfile
   import scala.slick.driver.H2Driver
-  import scala.slick.session.{ Database, Session }
+  import scala.slick.jdbc.JdbcBackend.Database
   val m = new Model("H2", new DAL(H2Driver),
     Database.forURL("jdbc:h2:mem:testdb", driver = "org.h2.Driver"))
   m.createDB
