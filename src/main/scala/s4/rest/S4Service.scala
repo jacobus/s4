@@ -21,7 +21,7 @@ import spray.routing.authentication.UserPass
 import spray.routing.authentication.UserPassAuthenticator
 import spray.routing.authentication.UserPassAuthenticator
 import spray.routing.directives.AuthMagnet.fromContextAuthenticator
-import spray.routing.directives.CompletionMagnet.fromObject
+//import spray.routing.directives.CompletionMagnet.fromObject
 import spray.routing.directives.FieldDefMagnet.apply
 
 // we don't implement our route structure directly in the service actor because
@@ -86,12 +86,26 @@ trait S4Service extends HttpService { this: DBConfig =>
       } ~
         path("index") {
           respondWithMediaType(`text/html`) {
-            complete(html.index().toString)
+    //        complete(html.index().toString)
+                      complete {
+            <html>
+              <body>
+                <h1>Fix this</h1>
+              </body>
+            </html>
+          }
           }
         } ~
         path("index2") {
           respondWithMediaType(`text/html`) {
-            complete(html.index2("Spraying some Bootstrap", "Hello Twirl served by Spray").toString)
+           // complete(html.index2("Spraying some Bootstrap", "Hello Twirl served by Spray").toString)
+                      complete {
+            <html>
+              <body>
+                <h1>Fix this also</h1>
+              </body>
+            </html>
+          }
           }
         }
     } ~

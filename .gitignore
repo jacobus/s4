@@ -1,5 +1,7 @@
 *.class
 *.log
+.history
+target
 
 # sbt specific
 dist/*
