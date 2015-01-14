@@ -7,3 +7,4 @@ addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
 resolvers += "spray repo" at "http://repo.spray.io"
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % "1.0.4")
+
