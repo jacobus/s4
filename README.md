@@ -24,7 +24,7 @@ It's just a start, but you immediately get:
 
 This project is _nothing fancy_, but tries to put skeleton code at the right places to start building a more serious project.
 
-The cake pattern is used to allow multiple database backend support without code change. This complicates the code a little, but it will be worth it in the long run. For a basic Slick cake pattern example (and where I got some code from) have a look at [the MultiDBCakeExample](https://github.com/slick/slick-examples/blob/master/src/main/scala/com/typesafe/slick/examples/lifted/MultiDBCakeExample.scala)
+The cake pattern is used to allow multiple database backend support without code change. This complicates the code a little, but it will be worth it in the long run. For a basic Slick cake pattern example (and where I got some code from) have a look at [the MultiDBCakeExample](https://github.com/typesafehub/activator-slick-multidb/blob/master/src/main/scala/cake/MultiDBCakeExample.scala)
 
 
 To get going:
