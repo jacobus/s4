@@ -21,6 +21,7 @@ It's just a start, but you immediately get:
 
    - A slice of cake
 
+*Note, if you have used, or are planning to use this example to get started, and are interested in using Akka-HTTP instead of Spray, have a look at the [this to get an idea of the type of changes required](https://github.com/lihaoyi/workbench-example-app/commit/d395668dae7c7d38e0065542481dee98d6137914).*
 
 This project is _nothing fancy_, but tries to put skeleton code at the right places to start building a more serious project.
 
