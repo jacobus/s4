@@ -52,7 +52,7 @@ To run the project as a service:
 
 Simple sample of file upload:
 ----------------------------
-To test the upload function. With s4 running, open another terminal and go into the s4 directory. Once there, excecute the following command:
+To test the upload function. With s4 running, open another terminal and go into the s4 directory. Once there, execute the following command:
 
     curl -i -F "imageupload=@testpic.png" http://127.0.0.1:8080/upload
 
